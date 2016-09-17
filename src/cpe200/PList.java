@@ -5,7 +5,7 @@ public class PList {
     public PList() { head = tail = null; }
 
     public void pushToHead(Object i) {
-        head = new PNode(i, head, null);
+        head = new PNode(i, head, null);                    //PNode(Object data, PNode next, PNode prev)
         if (tail==null)
             tail = head;
         else
@@ -14,7 +14,7 @@ public class PList {
     }
 
     public void pushToTail(Object i) {
-        tail = new PNode(i,null, tail);
+        tail = new PNode(i,null, tail);                     //PNode(Object data, PNode next, PNode prev)
         if (head==null)
             head = tail;
         else
@@ -22,7 +22,7 @@ public class PList {
         size++;
     }
 
-    public Object popHead() {
+    public Object popHead() {                               //
         Object data=head.data;
         PNode tmp = head;
 
@@ -58,15 +58,62 @@ public class PList {
 
     public boolean remove(Object data) {
 
-        PNode tmp = head, tmp2;
+        PNode tmp = head; //tmp2 = head;                        //don't need tmp2 for replace data
 
         while (tmp != null) {
             if (tmp.data.equals(data)) {
                 // implement your code here!!!
+
+
                 // case 1: head of the list
+                if (tmp.prev == null){
+                    popHead();
+                    //size--;
+                    return true;
+                }
+
+
                 // case 2: tail of the list
+                if (tmp.next == null){
+                    popTail();
+                    //size--;
+                    return true;
+                }
+
+
                 // case 3: somewhere in the middle
+
+
+                    /*
+                    //(tmp.prev).next = tmp.next;
+                    tmp2 = tmp.next;
+                    tmp2.next = (tmp.next).next;
+                    tmp2.prev = tmp.prev;
+                    //tmp2 = (tmp.prev).next;
+                     */
+
+
+                    /*                                      //code aun
+                    tmp2.next = tmp.next;
+                    tmp.next.prev = tmp2;
+                     */
+
+                    tmp.data = tmp.next.data;               //really not remove code, It a replace data
+                    tmp.next = tmp.next.next;               //and replece next node :D
+
+
+                    /*
+                    Node curr = mid;                        //sudo code from web
+		            curr.data = curr.next.data;
+		            curr.next = curr.next.next;
+                     */
+
+
+                    size--;
+                    return true;
+
             }
+            //tmp2 = tmp;                                   //don't need tmp2 for replace data
             tmp = tmp.next;
         }
         return false;
@@ -75,14 +122,30 @@ public class PList {
     public Object elementAt(int index) {
         // implement your code here!!!
         // what if index is not in between 0 to (size-1)
-
+        if(index<0 || index > size-1)
+            return null;
+        PNode tmp = head;
+        int count = 0;
+        while(tmp != null)
+        {
+            if(count++ == index)
+                return tmp.data;
+            tmp = tmp.next;
+        }
         return null;
     }
 
     // rename the search method to "found(Object data)"
     public boolean found(Object data) {
         // implement your code here!!!
+        PNode tmp = head;
 
+        while (tmp != null) {
+            if (tmp.data.equals(data)) {
+                return true;
+            }
+            tmp = tmp.next;
+        }
         return false;
     }
 
