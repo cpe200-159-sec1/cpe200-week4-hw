@@ -6,18 +6,21 @@ import java.util.regex.Pattern;
 public class Student {
 
     public Student() {
-        this("John Doe","560610000",1990,false);
+        this("John Doe", "560610000", 1990, false);
     }
+
     public Student(String n, String id) {
-        this(n,id,1995,true);
+        this(n, id, 1995, true);
     }
+
     public Student(String n, String id, int yob) {
-        this(n,id,yob,true);
+        this(n, id, yob, true);
     }
+
     public Student(String n, String id, int yob, boolean ia) {
-        this.name = !n.equalsIgnoreCase("")?n:"John Doe";
-        this.student_id = isValidStudent_id(id)?id:"560610000";
-        this.year_of_birth = isValidYOB(yob)?yob:1990;
+        this.name = !n.equalsIgnoreCase("") ? n : "John Doe";
+        this.student_id = isValidStudent_id(id) ? id : "560610000";
+        this.year_of_birth = isValidYOB(yob) ? yob : 1990;
         this.isActive = ia;
 
         // initialized the list for enrolled courses
@@ -26,8 +29,6 @@ public class Student {
 
     public boolean addCourse(Course c) {
         if (c.enrollStudent(this)) {    // enroll the course with "this" student object
-            // add the new course to the list of enrolled courses (PList)
-            // implement your code here!!!
             courses.pushToTail(c);
             return true;
         } else
@@ -35,9 +36,7 @@ public class Student {
     }
 
     public boolean dropCourse(Course c) {
-        // remove "this" student from the course
-        // implement your code here!!!
-        if(c.removeStudent(this)) {
+        if (c.removeStudent(this)) {
             courses.remove(c);
             return true;
         }
@@ -49,7 +48,7 @@ public class Student {
     }
 
     public void setName(String name) {
-        this.name = !name.equalsIgnoreCase("")?name:this.name;
+        this.name = !name.equalsIgnoreCase("") ? name : this.name;
     }
 
     public String getStudent_id() {
@@ -57,7 +56,7 @@ public class Student {
     }
 
     public void setStudent_id(String student_id) {
-        this.student_id = isValidStudent_id(student_id)?student_id:this.student_id;
+        this.student_id = isValidStudent_id(student_id) ? student_id : this.student_id;
     }
 
     public int getYearOfBirth() {
@@ -65,7 +64,7 @@ public class Student {
     }
 
     public void setYearOfBirth(int yob) {
-        this.year_of_birth = isValidYOB(yob)?yob:this.year_of_birth;
+        this.year_of_birth = isValidYOB(yob) ? yob : this.year_of_birth;
     }
 
     public boolean isActive() {
@@ -88,9 +87,9 @@ public class Student {
             o = o + "is an INACTIVE student.";
 
         // Information on course(s) which this student has enrolled.
-        for (int i=0; i<courses.getSize(); i++) {
-            Course c = (Course)courses.elementAt(i);
-            o += String.format("\n%s %s", c.getCourse_id(), c.getCourse_name() );
+        for (int i = 0; i < courses.getSize(); i++) {
+            Course c = (Course) courses.elementAt(i);
+            o += String.format("\n\t%s - %s", c.getCourse_id(), c.getCourse_name());
         }
 
         return o;
@@ -104,7 +103,7 @@ public class Student {
     }
 
     private boolean isValidYOB(int yob) {
-        return yob>1989;
+        return yob > 1989;
     }
 
     private static final String idREGEX = "5[6789]061[012]\\d{3}";

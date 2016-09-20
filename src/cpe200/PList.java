@@ -68,8 +68,10 @@ public class PList {
                     tmp.prev.next = tmp.next;
                 if (tmp.next != null)
                     tmp.next.prev = tmp.prev;
-                if(tmp==head)
-                    head = tail = null;
+                if (tmp == head)
+                    head = tmp.next;
+                if (tmp == tail)
+                    tail = tail.prev;
                 size--;
                 return true;
             }
@@ -83,20 +85,19 @@ public class PList {
             return null;
         PNode tmp = head;
         while (tmp != null) {
-            if(index--<=0) {
+            if (index-- <= 0) {
                 return tmp.data;
             }
             tmp = tmp.next;
         }
-
         return null;
     }
 
     // rename the search method to "found(Object data)"
     public boolean found(Object data) {
         PNode tmp = head;
-        while(tmp!=null) {
-            if(tmp.data.equals(data))
+        while (tmp != null) {
+            if (tmp.data.equals(data))
                 return true;
             tmp = tmp.next;
         }

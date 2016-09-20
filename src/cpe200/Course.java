@@ -31,36 +31,28 @@ public class Course {
     public boolean enrollStudent(Student s) {
 
         if (this.no_students < this.max_students) {
-            // check if the course is FULL
-            // check if the student has ALREADY enrolled in this course
-            // add the student to the list of students (PList)
-            // update number of students in the course
-            // print message and return value accordingly
-
-            // implement your code here!!!
             if(students.found(s)) {
-                System.out.println("Already enroll");
+                System.out.println(String.format("%s has already enrolled in %s", s.getStudent_id(), getCourse_id()));
+                return false;
             }else{
                 students.pushToTail(s);
                 no_students++;
+                System.out.println(String.format("%s has enrolled in %s successfully.", s.getStudent_id(), getCourse_id()));
                 return true;
             }
         } else {
-            // print error message, and return value accordingly
-            // implement your code here!!!
-
-            System.out.println("seat is full");
+            System.out.println(String.format("%s cannot enroll in this course, %s is full.", s.getStudent_id(), getCourse_id()));
+            return false;
         }
-
-        return false;
-
     }
 
     public boolean removeStudent(Student s) {
         if(students.remove(s)) {
+            System.out.println(String.format("%s has been removed from %s successfully.", s.getStudent_id(), getCourse_id()));
             no_students--;
             return true;
         }
+        System.out.println(String.format("%s is NOT enrolled in %s.", s.getStudent_id(), getCourse_id()));
         return false;
     }
 
@@ -124,7 +116,7 @@ public class Course {
 
         for(int i=0;i<students.getSize(); i++) {
             Student s = (Student) students.elementAt(i);
-            o+= String.format("\n%s %s", s.getStudent_id(), s.getName());
+            o+= String.format("\n\t%s - %s", s.getStudent_id(), s.getName());
         }
 
         return o;
