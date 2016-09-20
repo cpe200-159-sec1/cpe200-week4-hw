@@ -68,10 +68,16 @@ public class PList {
                     tmp.prev.next = tmp.next;
                 if (tmp.next != null)
                     tmp.next.prev = tmp.prev;
-                if (tmp == head)
-                    head = tmp.next;
-                if (tmp == tail)
+                if (tmp == head) {
+                    head = head.next;
+                    if (head != null)
+                        head.prev = null;
+                }
+                if (tmp == tail) {
                     tail = tail.prev;
+                    if (tail != null)
+                        tail.next = null;
+                }
                 size--;
                 return true;
             }
