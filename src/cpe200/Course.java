@@ -1,5 +1,6 @@
 package cpe200;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -129,7 +130,5 @@ public class Course {
     private int max_students;
     private int no_students;
 
-    // add a list of enrolled students
-    // implement your code here!!!
 
 }
