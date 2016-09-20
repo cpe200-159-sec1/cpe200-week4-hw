@@ -6,21 +6,23 @@ import java.util.regex.Pattern;
 
 public class Course {
 
-    public Course() { this("","","",DMAX); }
+    public Course() {
+        this("", "", "", DMAX);
+    }
 
     public Course(String n, String cid) {
-        this(n,cid,"",DMAX);
+        this(n, cid, "", DMAX);
     }
 
     public Course(String n, String cid, String l) {
-        this(n,cid,l,DMAX);
+        this(n, cid, l, DMAX);
     }
 
     public Course(String n, String cid, String l, int max) {
-        this.course_name = !n.equalsIgnoreCase("")?n:"TBA";
-        this.course_id = isValidCourse_id(cid)?cid:"000000";
-        this.lecturer = !l.equalsIgnoreCase("")?l:"TBA";
-        this.max_students = max<DMAX?DMAX:max;
+        this.course_name = !n.equalsIgnoreCase("") ? n : "TBA";
+        this.course_id = isValidCourse_id(cid) ? cid : "000000";
+        this.lecturer = !l.equalsIgnoreCase("") ? l : "TBA";
+        this.max_students = max < DMAX ? DMAX : max;
         this.no_students = 0;
 
         // initialized the list of enrolled students
@@ -31,10 +33,10 @@ public class Course {
     public boolean enrollStudent(Student s) {
 
         if (this.no_students < this.max_students) {
-            if(students.found(s)) {
+            if (students.found(s)) {
                 System.out.println(String.format("%s has already enrolled in %s", s.getStudent_id(), getCourse_id()));
                 return false;
-            }else{
+            } else {
                 students.pushToTail(s);
                 no_students++;
                 System.out.println(String.format("%s has enrolled in %s successfully.", s.getStudent_id(), getCourse_id()));
@@ -47,7 +49,7 @@ public class Course {
     }
 
     public boolean removeStudent(Student s) {
-        if(students.remove(s)) {
+        if (students.remove(s)) {
             System.out.println(String.format("%s has been removed from %s successfully.", s.getStudent_id(), getCourse_id()));
             no_students--;
             return true;
@@ -61,7 +63,7 @@ public class Course {
     }
 
     public void setCourse_name(String course_name) {
-        this.course_name = !course_name.equalsIgnoreCase("")?course_name:this.course_name;
+        this.course_name = !course_name.equalsIgnoreCase("") ? course_name : this.course_name;
     }
 
     public String getCourse_id() {
@@ -69,7 +71,7 @@ public class Course {
     }
 
     public void setCourse_id(String course_id) {
-        this.course_id = isValidCourse_id(course_id)?course_id:this.course_id;
+        this.course_id = isValidCourse_id(course_id) ? course_id : this.course_id;
     }
 
     public String getLecturer() {
@@ -77,7 +79,7 @@ public class Course {
     }
 
     public void setLecturer(String lecturer) {
-        this.lecturer = !lecturer.equalsIgnoreCase("")?lecturer:this.lecturer;
+        this.lecturer = !lecturer.equalsIgnoreCase("") ? lecturer : this.lecturer;
     }
 
     public int getMax_students() {
@@ -85,7 +87,7 @@ public class Course {
     }
 
     public void setMax_students(int max_students) {
-        this.max_students = max_students<10?this.max_students:max_students;
+        this.max_students = max_students < 10 ? this.max_students : max_students;
     }
 
     public int getNo_students() {
@@ -93,7 +95,7 @@ public class Course {
     }
 
     public void setNo_students(int no_students) {
-        this.no_students = (no_students>=0 && no_students<=max_students)?no_students:this.no_students;
+        this.no_students = (no_students >= 0 && no_students <= max_students) ? no_students : this.no_students;
     }
 
     @Override
@@ -114,9 +116,9 @@ public class Course {
         // Information on student(s) who has enrolled in this course
         // implement your code here!!!
 
-        for(int i=0;i<students.getSize(); i++) {
+        for (int i = 0; i < students.getSize(); i++) {
             Student s = (Student) students.elementAt(i);
-            o+= String.format("\n\t%s - %s", s.getStudent_id(), s.getName());
+            o += String.format("\n\t%s - %s", s.getStudent_id(), s.getName());
         }
 
         return o;
