@@ -1,5 +1,8 @@
 package cpe200;
 
+import java.lang.management.PlatformLoggingMXBean;
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,15 +29,25 @@ public class Student {
 
     public boolean addCourse(Course c) {
         if (c.enrollStudent(this)) {    // enroll the course with "this" student object
+            this.courses.pushToTail(c);
+            c.enrollStudent(this);
             // add the new course to the list of enrolled courses (PList)
             // implement your code here!!!
 
             return true;
-        } else
+        } else {
+
             return false;               // if unable to enroll a student
+
+        }
     }
 
     public boolean dropCourse(Course c) {
+
+        if(c.removeStudent(this)){
+            this.courses.remove(c);
+            return true;
+        }
         // remove "this" student from the course
         // implement your code here!!!
 
@@ -89,7 +102,7 @@ public class Student {
             Course c = (Course)courses.elementAt(i);
 
             // implement your code here!!!
-            o += "\n\tshow course information here...";
+            o += "\n\t" + c.getCourse_id() + "\t" + c.getCourse_name();
         }
 
         return o;

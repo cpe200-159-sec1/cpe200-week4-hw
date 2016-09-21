@@ -1,5 +1,7 @@
 package cpe200;
 
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,11 +26,21 @@ public class Course {
 
         // initialized the list of enrolled students
         // implement your code here!!!
+        this.enrolled_student = new PList();
     }
 
     public boolean enrollStudent(Student s) {
 
         if (this.no_students < this.max_students) {
+            if(!this.enrolled_student.found(s)) {
+                this.enrolled_student.pushToHead(s);
+                this.no_students++;
+                System.out.println(s.getStudent_id() + " has enrolled in " + this.course_id +" successfuly.");
+                return true;
+            }else{
+                System.out.println(s.getStudent_id()+" has already enrolled in "+this.course_id+".");
+                return false;
+            }
             // check if the course is FULL
             // check if the student has ALREADY enrolled in this course
             // add the student to the list of students (PList)
@@ -38,15 +50,19 @@ public class Course {
             // implement your code here!!!
 
         } else {
+            System.out.println(s.getStudent_id()+" cannot enroll in this course, "+this.course_id+" is full.");
+            return false;
             // print error message, and return value accordingly
             // implement your code here!!!
         }
 
-        return false;
-
     }
 
     public boolean removeStudent(Student s) {
+        if(this.enrolled_student.remove(s)){
+            this.no_students--;
+            return true;
+        }
         // implement your code here!!!
 
         return false;
@@ -107,6 +123,9 @@ public class Course {
 
         o += "[maximum: " + this.max_students + "]";
 
+
+        //enrolled_student.printForward();
+
         // Information on student(s) who has enrolled in this course
         // implement your code here!!!
 
@@ -128,6 +147,7 @@ public class Course {
     private String lecturer;
     private int max_students;
     private int no_students;
+    private PList enrolled_student;
 
     // add a list of enrolled students
     // implement your code here!!!

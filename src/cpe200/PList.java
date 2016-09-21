@@ -1,12 +1,17 @@
 package cpe200;
 
+import javax.xml.soap.Node;
+import java.util.Objects;
+
 public class PList {
 
-    public PList() { head = tail = null; }
+    public PList() {
+        head = tail = null;
+    }
 
     public void pushToHead(Object i) {
         head = new PNode(i, head, null);
-        if (tail==null)
+        if (tail == null)
             tail = head;
         else
             head.next.prev = head;
@@ -14,8 +19,8 @@ public class PList {
     }
 
     public void pushToTail(Object i) {
-        tail = new PNode(i,null, tail);
-        if (head==null)
+        tail = new PNode(i, null, tail);
+        if (head == null)
             head = tail;
         else
             tail.prev.next = tail;
@@ -23,10 +28,10 @@ public class PList {
     }
 
     public Object popHead() {
-        Object data=head.data;
+        Object data = head.data;
         PNode tmp = head;
 
-        if (head==tail)
+        if (head == tail)
             head = tail = null;
         else {
             head = head.next;
@@ -40,10 +45,10 @@ public class PList {
     }
 
     public Object popTail() {
-        Object data=tail.data;
+        Object data = tail.data;
         PNode tmp = tail;
 
-        if (tail==head)
+        if (tail == head)
             tail = head = null;
         else {
             tail = tail.prev;
@@ -62,6 +67,19 @@ public class PList {
 
         while (tmp != null) {
             if (tmp.data.equals(data)) {
+                if (tmp == head) {
+                    head = head.next;
+                    size--;
+                    return true;
+                } else if (tmp == tail) {
+                    tail = tail.prev;
+                    size--;
+                    return true;
+                } else {
+                    tmp.prev.next = tmp.next;
+                    size--;
+                    return true;
+                }
                 // implement your code here!!!
                 // case 1: head of the list
                 // case 2: tail of the list
@@ -73,20 +91,37 @@ public class PList {
     }
 
     public Object elementAt(int index) {
-        // implement your code here!!!
-        // what if index is not in between 0 to (size-1)
+        PNode tmp = head;
 
+        //if(index<0 || index > size-1)
+        for (int i = 0; i < size; i++) {
+            if (i == index) {
+                return tmp.data;
+            }
+            tmp = tmp.next;
+        }
+        // what if index is not in between 0 to (size-1)
+        //return null;
         return null;
     }
 
     // rename the search method to "found(Object data)"
     public boolean found(Object data) {
+        PNode tmp = head;
+        for (int i=0;i<size;i++){
+            if(data.equals(tmp.data)){
+                return true;
+            }
+            tmp = tmp.next;
+        }
         // implement your code here!!!
 
         return false;
     }
 
-    public boolean isEmpty() { return (head == null); }
+    public boolean isEmpty() {
+        return (head == null);
+    }
 
     public void printForward() {
         PNode tmp = head;
@@ -113,5 +148,5 @@ public class PList {
     }
 
     private PNode head, tail;
-    private int size=0;
+    private int size = 0;
 }
