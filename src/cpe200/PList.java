@@ -65,7 +65,9 @@ public class PList {
                     // case 1: head of the list
                     // case 2: tail of the list
                     // case 3: somewhere in the middle
-                    if (head == tmp){
+                    if (size == 1){
+                        head = tail = null;
+                    }else if (head == tmp){
                         tmp.next.prev = null;
                         head = tmp.next;
                     }else if (tail == tmp){
