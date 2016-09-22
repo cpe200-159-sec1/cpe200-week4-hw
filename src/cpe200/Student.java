@@ -1,5 +1,8 @@
 package cpe200;
 
+import java.lang.management.PlatformLoggingMXBean;
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,23 +24,36 @@ public class Student {
         this.isActive = ia;
 
         // initialized the list for enrolled courses
+
         this.courses = new PList();
     }
 
     public boolean addCourse(Course c) {
         if (c.enrollStudent(this)) {    // enroll the course with "this" student object
+            this.courses.pushToTail(c);
+
             // add the new course to the list of enrolled courses (PList)
             // implement your code here!!!
-
+            System.out.println(this.getStudent_id() + " has enrolled in " + c.getCourse_id() +" successfuly.");
             return true;
-        } else
+        } else {
+            System.out.println(this.getStudent_id()+" cannot enroll in this course, "+c.getCourse_id()+" is full.");
+
             return false;               // if unable to enroll a student
+
+        }
     }
 
     public boolean dropCourse(Course c) {
+
+        if(c.removeStudent(this)){
+            this.courses.remove(c);
+            System.out.println(this.student_id+" has been removed from "+c.getCourse_id()+" successfully.");
+            return true;
+        }
         // remove "this" student from the course
         // implement your code here!!!
-
+        System.out.println(this.student_id+" is NOT enrolled in "+c.getCourse_id()+".");
         return false;
     }
 
@@ -89,7 +105,7 @@ public class Student {
             Course c = (Course)courses.elementAt(i);
 
             // implement your code here!!!
-            o += "\n\tshow course information here...";
+            o += "\n\t" + c.getCourse_id() + "\t" + c.getCourse_name();
         }
 
         return o;
