@@ -57,17 +57,31 @@ public class PList {
     }
 
     public boolean remove(Object data) {
-
-        PNode tmp = head, tmp2;
-
-        while (tmp != null) {
-            if (tmp.data.equals(data)) {
-                // implement your code here!!!
-                // case 1: head of the list
-                // case 2: tail of the list
-                // case 3: somewhere in the middle
+        if (!isEmpty()){
+            PNode tmp = head, tmp2;
+            while (tmp != null) {
+                if (tmp.data.equals(data)) {
+                    // implement your code here!!!
+                    // case 1: head of the list
+                    // case 2: tail of the list
+                    // case 3: somewhere in the middle
+                    if (size == 1){
+                        head = tail = null;
+                    }else if (head == tmp){
+                        tmp.next.prev = null;
+                        head = tmp.next;
+                    }else if (tail == tmp){
+                        tmp.prev.next = null;
+                        tail = tmp.prev;
+                    }else{
+                        tmp.prev.next = tmp.next;
+                        tmp.next.prev = tmp.prev;
+                    }
+                    size--;
+                    return true;
+                }
+                tmp = tmp.next;
             }
-            tmp = tmp.next;
         }
         return false;
     }
@@ -75,14 +89,29 @@ public class PList {
     public Object elementAt(int index) {
         // implement your code here!!!
         // what if index is not in between 0 to (size-1)
-
-        return null;
+        if (index < 0 || index >= size){
+            return null;
+        }else{
+            PNode tmp = head;
+            while (0 != index--){
+                tmp = tmp.next;
+            }
+            return tmp.data;
+        }
     }
 
     // rename the search method to "found(Object data)"
     public boolean found(Object data) {
         // implement your code here!!!
-
+        if (!isEmpty()){
+            PNode tmp = head;
+            for (int i = 0; i < size; i++) {
+                if (tmp.data.equals(data)){
+                    return true;
+                }
+                tmp = tmp.next;
+            }
+        }
         return false;
     }
 
