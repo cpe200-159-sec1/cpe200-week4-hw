@@ -33,12 +33,11 @@ public class Course {
 
         if (this.no_students < this.max_students) {
             if(!this.enrolled_student.found(s)) {
-                this.enrolled_student.pushToHead(s);
+                this.enrolled_student.pushToTail(s);
                 this.no_students++;
-                System.out.println(s.getStudent_id() + " has enrolled in " + this.course_id +" successfuly.");
                 return true;
             }else{
-                System.out.println(s.getStudent_id()+" has already enrolled in "+this.course_id+".");
+                System.out.println(s.getStudent_id()+" has already enrolled in "+this.getCourse_id()+".");
                 return false;
             }
             // check if the course is FULL
@@ -50,7 +49,7 @@ public class Course {
             // implement your code here!!!
 
         } else {
-            System.out.println(s.getStudent_id()+" cannot enroll in this course, "+this.course_id+" is full.");
+           // System.out.println(s.getStudent_id()+" cannot enroll in this course, "+this.course_id+" is full.");
             return false;
             // print error message, and return value accordingly
             // implement your code here!!!
@@ -59,9 +58,15 @@ public class Course {
     }
 
     public boolean removeStudent(Student s) {
-        if(this.enrolled_student.remove(s)){
-            this.no_students--;
-            return true;
+       if(no_students != 0){
+           if(this.enrolled_student.found(s)) {
+               enrolled_student.remove(s);
+               no_students--;
+
+               return true;
+           }else{
+               return false;
+           }
         }
         // implement your code here!!!
 
@@ -124,7 +129,12 @@ public class Course {
         o += "[maximum: " + this.max_students + "]";
 
 
-        //enrolled_student.printForward();
+        for (int i=0; i<enrolled_student.getSize(); i++) {
+            Student s = (Student)enrolled_student.elementAt(i);
+
+            // implement your code here!!!
+            o += "\n\t" + s.getStudent_id() + " - " + s.getName();
+        }
 
         // Information on student(s) who has enrolled in this course
         // implement your code here!!!

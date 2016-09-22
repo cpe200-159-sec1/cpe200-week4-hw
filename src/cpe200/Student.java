@@ -24,18 +24,20 @@ public class Student {
         this.isActive = ia;
 
         // initialized the list for enrolled courses
+
         this.courses = new PList();
     }
 
     public boolean addCourse(Course c) {
         if (c.enrollStudent(this)) {    // enroll the course with "this" student object
             this.courses.pushToTail(c);
-            c.enrollStudent(this);
+
             // add the new course to the list of enrolled courses (PList)
             // implement your code here!!!
-
+            System.out.println(this.getStudent_id() + " has enrolled in " + c.getCourse_id() +" successfuly.");
             return true;
         } else {
+            System.out.println(this.getStudent_id()+" cannot enroll in this course, "+c.getCourse_id()+" is full.");
 
             return false;               // if unable to enroll a student
 
@@ -46,11 +48,12 @@ public class Student {
 
         if(c.removeStudent(this)){
             this.courses.remove(c);
+            System.out.println(this.student_id+" has been removed from "+c.getCourse_id()+" successfully.");
             return true;
         }
         // remove "this" student from the course
         // implement your code here!!!
-
+        System.out.println(this.student_id+" is NOT enrolled in "+c.getCourse_id()+".");
         return false;
     }
 
