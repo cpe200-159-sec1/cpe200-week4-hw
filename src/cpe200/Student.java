@@ -26,19 +26,18 @@ public class Student {
 
     public boolean addCourse(Course c) {
         if (c.enrollStudent(this)) {    // enroll the course with "this" student object
-            // add the new course to the list of enrolled courses (PList)
+           courses.pushToTail(c); // add the new course to the list of enrolled courses (PList)
             // implement your code here!!!
-
             return true;
         } else
             return false;               // if unable to enroll a student
     }
 
     public boolean dropCourse(Course c) {
-        // remove "this" student from the course
-        // implement your code here!!!
-
-        return false;
+        if(c.removeStudent(this)) { // remove "this" student from the course
+            courses.remove(c);
+            return true;
+        }else return false; // implement your code here!!!
     }
 
     public String getName() {
@@ -89,7 +88,7 @@ public class Student {
             Course c = (Course)courses.elementAt(i);
 
             // implement your code here!!!
-            o += "\n\tshow course information here...";
+            o += "\n\t" + c.getCourse_id() + " - " + c.getCourse_name() ;
         }
 
         return o;
