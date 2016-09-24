@@ -29,25 +29,25 @@ public class Course {
     public boolean enrollStudent(Student s) {
 
         if (this.no_students < this.max_students) {
-            // check if the course is FULL
-            // check if the student has ALREADY enrolled in this course
-            // add the student to the list of students (PList)
-            // update number of students in the course
-            // print message and return value accordingly
-
-            // implement your code here!!!
-
+            if (student.found(s)) {
+                System.out.println("ALREADY enrolled in this course!");
+                return false;
+            } else {
+                student.pushToTail(s);
+                no_students++;
+                return true;
+            }
         } else {
-            // print error message, and return value accordingly
-            // implement your code here!!!
+            System.out.println("FULL!");
+            return false;
         }
-
-        return false;
-
     }
 
     public boolean removeStudent(Student s) {
-        // implement your code here!!!
+        if (!student.isEmpty() && student.remove(s)) {
+            s.dropCourse(this);
+            return true;
+        }
 
         return false;
     }
@@ -129,6 +129,7 @@ public class Course {
     private int max_students;
     private int no_students;
 
+    private PList student = new PList();
     // add a list of enrolled students
     // implement your code here!!!
 
