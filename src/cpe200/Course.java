@@ -44,7 +44,8 @@ public class Course {
     }
 
     public boolean removeStudent(Student s) {
-        if (!student.isEmpty() && student.remove(s)) {
+        if (student.remove(s)) {
+            no_students--;
             s.dropCourse(this);
             return true;
         }
@@ -109,6 +110,17 @@ public class Course {
 
         // Information on student(s) who has enrolled in this course
         // implement your code here!!!
+        for (int i = 0; i < student.getSize(); i++) {
+            Student s = (Student) student.elementAt(i);
+            o += "\n\t" + s.getName() + " ("
+                    + s.getStudent_id() + ") was born in "
+                    + s.getStudent_id() + " ";
+
+            if (s.isActive())
+                o = o + "is an ACTIVE student.";
+            else
+                o = o + "is an INACTIVE student.";
+        }
 
         return o;
     }

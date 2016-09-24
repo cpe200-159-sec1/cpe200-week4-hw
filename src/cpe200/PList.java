@@ -60,7 +60,6 @@ public class PList {
 
         while (tmp != null) {
             if (tmp.data.equals(data)) {
-                size--;
                 if (tmp.equals(head))
                     data = popHead();
                 else if (tmp.equals(tail))
@@ -69,6 +68,7 @@ public class PList {
                     tmp.prev.next = tmp.next;
                     tmp.next.prev = tmp.prev;
                     tmp.next = tmp.prev = null;
+                    size--;
                 }
                 return true;
             }

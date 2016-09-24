@@ -34,7 +34,7 @@ public class Student {
     }
 
     public boolean dropCourse(Course c) {
-        if (!courses.isEmpty() && courses.remove(c)) {
+        if (courses.remove(c)) {
             c.removeStudent(this);
             return true;
         }
@@ -89,7 +89,18 @@ public class Student {
             Course c = (Course)courses.elementAt(i);
 
             // implement your code here!!!
-            o += "\n\tshow course information here...";
+            o += "\n\t" + c.getCourse_name() + " ("
+                    + c.getCourse_id() + "), Teacher: "
+                    + c.getLecturer() + ", has ";
+
+            if (c.getNo_students() < 1)
+                o += "NO student, ";
+            else if (c.getNo_students() == 1)
+                o += "ONE student, ";
+            else if (c.getNo_students() > 1)
+                o += c.getNo_students() + " students, ";
+
+            o += "[maximum: " + c.getMax_students() + "]";
         }
 
         return o;
