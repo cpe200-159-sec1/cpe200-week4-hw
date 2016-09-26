@@ -23,7 +23,7 @@ public class Course {
         this.no_students = 0;
 
         // initialized the list of enrolled students
-        // implement your code here!!!
+        this.student = new PList();
     }
 
     public boolean enrollStudent(Student s) {
@@ -35,11 +35,16 @@ public class Course {
             // update number of students in the course
             // print message and return value accordingly
 
-            // implement your code here!!!
+            if(!student.found(s)) {
+                student.pushToTail(s);
+                no_students++;
+                return true;
+            }
 
         } else {
             // print error message, and return value accordingly
-            // implement your code here!!!
+            System.out.println("ERROR");
+            return false;
         }
 
         return false;
@@ -47,8 +52,11 @@ public class Course {
     }
 
     public boolean removeStudent(Student s) {
-        // implement your code here!!!
-
+        if(student.remove(s))
+        {
+            no_students--;
+            return true;
+        }
         return false;
     }
 
@@ -130,6 +138,6 @@ public class Course {
     private int no_students;
 
     // add a list of enrolled students
-    // implement your code here!!!
+    private PList student;
 
 }
