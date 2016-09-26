@@ -25,20 +25,19 @@ public class Student {
     }
 
     public boolean addCourse(Course c) {
-        if (c.enrollStudent(this)) {    // enroll the course with "this" student object
-            // add the new course to the list of enrolled courses (PList)
-            // implement your code here!!!
-
+        if (c.enrollStudent(this)) {
+            courses.pushToTail(c);
             return true;
         } else
             return false;               // if unable to enroll a student
     }
 
     public boolean dropCourse(Course c) {
-        // remove "this" student from the course
-        // implement your code here!!!
-
-        return false;
+        if(c.removeStudent(this)){
+            courses.remove(c);
+            return true;
+        }
+        else{return false;}
     }
 
     public String getName() {
@@ -83,13 +82,12 @@ public class Student {
             o = o + "is an ACTIVE student.";
         else
             o = o + "is an INACTIVE student.";
-
-        // Information on course(s) which this student has enrolled.
-        for (int i=0; i<courses.getSize(); i++) {
-            Course c = (Course)courses.elementAt(i);
-
-            // implement your code here!!!
-            o += "\n\tshow course information here...";
+        if(!courses.isEmpty()){
+            o+="\n";}
+        int L=courses.getSize();
+        for (int e=0; e<L;e++) {
+            Course c = (Course)courses.elementAt(e);
+            o += "\t"+c.getCourse_name()+" ("+c.getCourse_id()+")\n";
         }
 
         return o;
