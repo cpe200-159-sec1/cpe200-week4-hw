@@ -5,7 +5,8 @@ import java.util.regex.Pattern;
 
 public class Course {
 
-    public Course() { this("","","",DMAX); }
+    public Course() {
+        this("","","",DMAX); }
 
     public Course(String n, String cid) {
         this(n,cid,"",DMAX);
@@ -24,22 +25,51 @@ public class Course {
 
         // initialized the list of enrolled students
         // implement your code here!!!
+        studentList = new PList();
+
     }
 
     public boolean enrollStudent(Student s) {
 
-        if (this.no_students < this.max_students) {
-            // check if the course is FULL
-            // check if the student has ALREADY enrolled in this course
-            // add the student to the list of students (PList)
-            // update number of students in the course
-            // print message and return value accordingly
+        if (this.no_students < this.max_students) {         // check if the course is FULL
+
+
+
+                                                        // check if the student has ALREADY enrolled in this course
+            if (!this.studentList.found(s)){
+                this.studentList.pushToTail(s);                 // add the student to the list of students (PList)
+                this.no_students++;                             // update number of students in the course
+                System.out.println( s.getStudent_id() + " has enrolled " + this.course_id + " successfully. ");   // print message and return value accordingly
+
+
+                return true;
+            }
+            else {
+                System.out.println("Error this Student already enrolled");
+                return false;
+
+            }
+
+
+
+
+
 
             // implement your code here!!!
 
-        } else {
+
+
+
+
+        }
+
+        else {
             // print error message, and return value accordingly
+            System.out.println("This course is full");
             // implement your code here!!!
+
+
+
         }
 
         return false;
@@ -48,6 +78,17 @@ public class Course {
 
     public boolean removeStudent(Student s) {
         // implement your code here!!!
+        if (this.studentList.found(s))
+        {
+            studentList.remove(s);
+            this.no_students--;
+            System.out.println(s.getStudent_id() + " has been removed from " + this.course_id +" successfully.");
+            return true;
+
+
+
+        }
+        System.out.println(s.getStudent_id() + " is NOT enrolled in " + this.course_id + ".");
 
         return false;
     }
@@ -110,6 +151,15 @@ public class Course {
         // Information on student(s) who has enrolled in this course
         // implement your code here!!!
 
+        for (int i=0; i<studentList.getSize(); i++) {
+            Student s = (Student) studentList.elementAt(i);
+
+            // implement your code here!!!
+            o += "\n\t" + s.getStudent_id() +" - "+ s.getName();
+        }
+
+
+
         return o;
     }
 
@@ -131,5 +181,5 @@ public class Course {
 
     // add a list of enrolled students
     // implement your code here!!!
-
+    private PList studentList;
 }

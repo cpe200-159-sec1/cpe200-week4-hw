@@ -7,7 +7,7 @@ public class PNode {
     public PNode() { next = prev = null; }
     public PNode(Object data, PNode next, PNode prev) {
         this.data = data;
-        this.next=next;
-        this.prev=prev;
+        this.next = next;
+        this.prev = prev;
     }
 }
