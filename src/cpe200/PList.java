@@ -12,7 +12,9 @@ public class PList {
             head.next.prev = head;
         size++;
     }
-
+    public PNode getHead(){
+        return head;
+    }
     public void pushToTail(Object i) {
         tail = new PNode(i,null, tail);
         if (head==null)
@@ -29,9 +31,9 @@ public class PList {
         if (head==tail)
             head = tail = null;
         else {
-            head = head.next;
+            head = head.next;tmp.next = null;
             head.prev = null;
-            tmp.next = null;
+
         }
 
         size--;
@@ -40,50 +42,77 @@ public class PList {
     }
 
     public Object popTail() {
-        Object data=tail.data;
+        Object D=tail.data;
         PNode tmp = tail;
 
         if (tail==head)
             tail = head = null;
         else {
-            tail = tail.prev;
+            tail = tail.prev;tmp.prev = null;
             tail.next = null;
-            tmp.prev = null;
+
         }
 
         size--;
 
-        return data;
+        return D;
     }
 
-    public boolean remove(Object data) {
+    public boolean remove(Object D) {
 
-        PNode tmp = head, tmp2;
+        PNode tmp = head,tmp2=tail,a,b;
 
-        while (tmp != null) {
-            if (tmp.data.equals(data)) {
-                // implement your code here!!!
-                // case 1: head of the list
-                // case 2: tail of the list
-                // case 3: somewhere in the middle
+        if(head.next==tail&&tail.prev==head) {
+            if (tmp.data.equals(D)) {
+                this.popHead();
+                return true;
+            } else if (tmp2.data.equals(D)) {
+                this.popTail();
+                return true;
             }
-            tmp = tmp.next;
+        }
+        else if(head==tail){head=tail=null;return true;}
+        else{
+            while (tmp != null) {
+                if (tmp.data.equals(D)) {
+                    if (tmp == head) {
+                        this.popHead();
+                        return true;
+                    } else if (tmp == tail) {
+                        this.popTail();
+                        return true;
+                    } else {
+                        a = tmp.prev;
+                        b = tmp.next;
+                        a.next = b;
+                        b.prev = a;
+                        return true;
+                    }
+                }
+                tmp = tmp.next;
+            }
         }
         return false;
     }
 
     public Object elementAt(int index) {
-        // implement your code here!!!
-        // what if index is not in between 0 to (size-1)
-
-        return null;
+        if(!(index>=0 && index<this.getSize())){return null;}
+        else{
+            PNode curr=head;
+            for(int i=0;i<index;i++){curr=curr.next;}
+            Object d=curr.data;
+            return d;
+        }
     }
-
-    // rename the search method to "found(Object data)"
-    public boolean found(Object data) {
-        // implement your code here!!!
-
-        return false;
+    public boolean found(Object w) {
+        if (isEmpty()){return false;}
+        else
+        {
+            PNode curr=head;
+            while(curr.next!=null && curr.data!=w){curr=curr.next;}
+            if(curr.data!=w){return false;}
+            else{return true;}
+        }
     }
 
     public boolean isEmpty() { return (head == null); }

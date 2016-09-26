@@ -21,35 +21,31 @@ public class Course {
         this.lecturer = !l.equalsIgnoreCase("")?l:"TBA";
         this.max_students = max<DMAX?DMAX:max;
         this.no_students = 0;
-
-        // initialized the list of enrolled students
-        // implement your code here!!!
     }
 
     public boolean enrollStudent(Student s) {
 
-        if (this.no_students < this.max_students) {
-            // check if the course is FULL
-            // check if the student has ALREADY enrolled in this course
-            // add the student to the list of students (PList)
-            // update number of students in the course
-            // print message and return value accordingly
-
-            // implement your code here!!!
-
+        if (this.no_students <this.max_students && !this.students.found(s)) {
+            this.students.pushToTail(s);no_students++;
+            System.out.println(s.getStudent_id()+ " has ENROLLED "+this.getCourse_id()+" sucessfully.");
+            return true;
         } else {
-            // print error message, and return value accordingly
-            // implement your code here!!!
+            if(this.students.found(s)) {
+                System.out.println(s.getStudent_id()+" has ALREADY enrolled "+this.course_id);
+            }
+            else{System.out.println("Course "+this.course_id+" is FULL!");}
+            return false;
         }
-
-        return false;
-
     }
-
     public boolean removeStudent(Student s) {
-        // implement your code here!!!
-
-        return false;
+        if(this.students.found(s)) {
+            this.students.remove(s);
+            System.out.println(s.getStudent_id()+ " has been REMOVED from "+this.getCourse_id()+" sucessfully.");
+            no_students--;return true;
+        }else{
+            if(no_students==0){System.out.println("Course "+this.course_id+" is EMPTY!");}
+            else{System.out.println(s.getStudent_id()+" HASN'T enrolled "+this.course_id);}
+            return false;}
     }
 
     public String getCourse_name() {
@@ -98,28 +94,33 @@ public class Course {
                 + this.course_id + "), Teacher: "
                 + this.lecturer + ", has ";
 
-        if (this.no_students < 1)
+        if (this.no_students < 1){
             o += "NO student, ";
-        else if (this.no_students == 1)
+            o += "[maximum: " + this.max_students + "]";}
+        else if (this.no_students == 1){
             o += "ONE student, ";
-        else if (this.no_students > 1)
+            o += "[maximum: " + this.max_students + "]";}
+        else if (this.no_students > 1) {
             o += this.no_students + " students, ";
-
-        o += "[maximum: " + this.max_students + "]";
-
-        // Information on student(s) who has enrolled in this course
-        // implement your code here!!!
-
+            o += "[maximum: " + this.max_students + "]";
+        }
+        if(!students.isEmpty()) {
+            PNode curr = students.getHead();
+            Student z;
+            while (curr != null) {
+                z = (Student) curr.data;
+                o += "\n\t" + z.getStudent_id();
+                curr = curr.next;
+            }
+        }
         return o;
     }
-
     private boolean isValidCourse_id(String id) {
         Pattern p = Pattern.compile(idREGEX);
         Matcher m = p.matcher(id);
 
         return m.matches();
     }
-
     private static final String idREGEX = "\\d{6}";
     private static final int DMAX = 3;
 
@@ -128,8 +129,6 @@ public class Course {
     private String lecturer;
     private int max_students;
     private int no_students;
-
-    // add a list of enrolled students
-    // implement your code here!!!
+    private PList students=new PList();
 
 }
