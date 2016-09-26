@@ -83,31 +83,8 @@ public class PList {
 
                 // case 3: somewhere in the middle
 
-
-                    /*
-                    //(tmp.prev).next = tmp.next;
-                    tmp2 = tmp.next;
-                    tmp2.next = (tmp.next).next;
-                    tmp2.prev = tmp.prev;
-                    //tmp2 = (tmp.prev).next;
-                     */
-
-
-                    /*                                      //code aun
-                    tmp2.next = tmp.next;
-                    tmp.next.prev = tmp2;
-                     */
-
                     tmp.data = tmp.next.data;               //really not remove code, It a replace data
-                    tmp.next = tmp.next.next;               //and replece next node :D
-
-
-                    /*
-                    Node curr = mid;                        //sudo code from web
-		            curr.data = curr.next.data;
-		            curr.next = curr.next.next;
-                     */
-
+                    tmp.next = tmp.next.next;               //and replace next node :D
 
                     size--;
                     return true;
