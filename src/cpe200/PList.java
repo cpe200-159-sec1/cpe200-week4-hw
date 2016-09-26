@@ -24,14 +24,15 @@ public class PList {
 
     public Object popHead() {
         Object data=head.data;
-        PNode tmp = head;
 
         if (head==tail)
             head = tail = null;
         else {
             head = head.next;
-            head.prev = null;
-            tmp.next = null;
+            if(head == null)
+                this.tail = this.head;
+            else
+                head.prev = null;
         }
 
         size--;
@@ -41,14 +42,16 @@ public class PList {
 
     public Object popTail() {
         Object data=tail.data;
-        PNode tmp = tail;
+
 
         if (tail==head)
             tail = head = null;
         else {
             tail = tail.prev;
-            tail.next = null;
-            tmp.prev = null;
+            if(tail == null)
+                this.head = this.tail;
+            else
+                tail.next = null;
         }
 
         size--;
@@ -58,16 +61,32 @@ public class PList {
 
     public boolean remove(Object data) {
 
-        PNode tmp = head, tmp2;
+        PNode temp = head, temp2 = head;
 
-        while (tmp != null) {
-            if (tmp.data.equals(data)) {
+        while (temp != null) {
+            if (temp.data.equals(data)) {
                 // implement your code here!!!
+
                 // case 1: head of the list
+                if(temp == head)
+                {
+                    popHead();
+                    return true;
+                }
                 // case 2: tail of the list
+                if(temp == tail)
+                {
+                    popTail();
+                    return true;
+                }
                 // case 3: somewhere in the middle
+                temp2.next = temp.next;
+                temp.next.prev = temp2;
+                size--;
+                return true;
             }
-            tmp = tmp.next;
+            temp2 = temp;
+            temp = temp.next;
         }
         return false;
     }
@@ -75,7 +94,17 @@ public class PList {
     public Object elementAt(int index) {
         // implement your code here!!!
         // what if index is not in between 0 to (size-1)
+        PNode temp = head;
+        int count = 0;
+        if(index<0 || index > size-1)  return null;
 
+
+        while(temp != null)
+        {
+            if(count++ == index)
+                return temp.data;
+            temp = temp.next;
+        }
         return null;
     }
 
@@ -83,6 +112,16 @@ public class PList {
     public boolean found(Object data) {
         // implement your code here!!!
 
+        PNode temp = head;
+
+        while(temp != null)
+        {
+            if(temp.data.equals(data))
+            {
+                return true;
+            }
+            temp = temp.next;
+        }
         return false;
     }
 

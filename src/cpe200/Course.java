@@ -24,6 +24,8 @@ public class Course {
 
         // initialized the list of enrolled students
         // implement your code here!!!
+
+        studentList = new PList();
     }
 
     public boolean enrollStudent(Student s) {
@@ -36,10 +38,21 @@ public class Course {
             // print message and return value accordingly
 
             // implement your code here!!!
-
+            if(!this.studentList.found(s))
+            {
+                studentList.pushToTail(s);
+                this.no_students++;
+                System.out.print(s.getStudent_id()+" has enrolled in "+this.course_id+" successfully.");
+                System.out.println();
+                return true;
+            }
+            System.out.print(s.getStudent_id()+" has already enrolled in "+this.course_id + ".");
+            System.out.println();
         } else {
             // print error message, and return value accordingly
             // implement your code here!!!
+            System.out.print(s.getStudent_id()+" cannot enroll in this course, "+this.course_id+" is full.");
+            System.out.println();
         }
 
         return false;
@@ -48,6 +61,16 @@ public class Course {
 
     public boolean removeStudent(Student s) {
         // implement your code here!!!
+        if (this.studentList.found(s))
+        {
+            studentList.remove(s);
+            this.no_students--;
+            System.out.print(s.getStudent_id() + " has been removed from " + this.course_id +" successfully.");
+            System.out.println();
+            return true;
+        }
+        System.out.print(s.getStudent_id() + " is NOT enrolled in " + this.course_id + ".");
+        System.out.println();
 
         return false;
     }
@@ -108,7 +131,12 @@ public class Course {
         o += "[maximum: " + this.max_students + "]";
 
         // Information on student(s) who has enrolled in this course
-        // implement your code here!!!
+        for (int i=0; i<studentList.getSize(); i++) {
+            Student s = (Student) studentList.elementAt(i);
+
+            // implement your code here!!!
+            o += "\n\t" + s.getStudent_id() +" - "+ s.getName();
+        }
 
         return o;
     }
@@ -120,7 +148,7 @@ public class Course {
         return m.matches();
     }
 
-    private static final String idREGEX = "\\d{6}";
+    private static final String idREGEX = "^\\d{6}$";
     private static final int DMAX = 3;
 
     private String course_name;
@@ -131,5 +159,6 @@ public class Course {
 
     // add a list of enrolled students
     // implement your code here!!!
+    private PList studentList;
 
 }
