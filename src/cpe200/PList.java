@@ -62,10 +62,27 @@ public class PList {
 
         while (tmp != null) {
             if (tmp.data.equals(data)) {
-                // implement your code here!!!
-                // case 1: head of the list
-                // case 2: tail of the list
-                // case 3: somewhere in the middle
+         // implement your code here!!!
+         // case 1: head of the list
+         // case 2: tail of the
+         // case 3: somewhere in the middle
+                if(tmp== head){
+                    head=head.next;
+                    size--;
+                    return true;
+                }else
+
+                    if(tmp==tail){
+                    tail=tail.prev;
+                        size--;
+                        return true;
+                }else
+                    {
+
+                    tmp.prev.next = tmp.next;
+                    size--;
+                    return  true;
+                }
             }
             tmp = tmp.next;
         }
@@ -75,6 +92,12 @@ public class PList {
     public Object elementAt(int index) {
         // implement your code here!!!
         // what if index is not in between 0 to (size-1)
+        PNode tmp =head;
+        for(int i=0; i<size;i++){
+            if (i==index){
+                return tmp.data;
+            } tmp=tmp.next;
+        }
 
         return null;
     }
@@ -82,6 +105,12 @@ public class PList {
     // rename the search method to "found(Object data)"
     public boolean found(Object data) {
         // implement your code here!!!
+        PNode tmp = head;
+        for(int i=0;i<size;i++){
+            if(data.equals(tmp.data)){
+                return true;
+            }tmp=tmp.next;
+        }
 
         return false;
     }
