@@ -60,7 +60,7 @@ public class PList {
 
     public boolean remove(Object data) {
 
-        PNode tmp = head, tmp2;
+        PNode tmp = head;
 
         while (tmp != null) {
             if (tmp.data.equals(data)) {
@@ -70,6 +70,9 @@ public class PList {
                 // case 3: somewhere in the middle
                 if (tail == head) {
                     head = tail = null;
+                } else if (head == tmp) {
+                    head = head.next;
+                    head.prev = null;
                 } else if (tail == tmp) {
                     tail = tmp.prev;
                     tmp.next = null;

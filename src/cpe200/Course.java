@@ -64,7 +64,7 @@ public class Course {
             this.no_students--;
             return true;
         }
-            return false;
+        return false;
     }
 
     public String getCourse_name() {
