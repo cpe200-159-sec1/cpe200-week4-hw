@@ -5,25 +5,28 @@ import java.util.regex.Pattern;
 
 public class Course {
 
-    public Course() { this("","","",DMAX); }
+    public Course() {
+        this("", "", "", DMAX);
+    }
 
     public Course(String n, String cid) {
-        this(n,cid,"",DMAX);
+        this(n, cid, "", DMAX);
     }
 
     public Course(String n, String cid, String l) {
-        this(n,cid,l,DMAX);
+        this(n, cid, l, DMAX);
     }
 
     public Course(String n, String cid, String l, int max) {
-        this.course_name = !n.equalsIgnoreCase("")?n:"TBA";
-        this.course_id = isValidCourse_id(cid)?cid:"000000";
-        this.lecturer = !l.equalsIgnoreCase("")?l:"TBA";
-        this.max_students = max<DMAX?DMAX:max;
+        this.course_name = !n.equalsIgnoreCase("") ? n : "TBA";
+        this.course_id = isValidCourse_id(cid) ? cid : "000000";
+        this.lecturer = !l.equalsIgnoreCase("") ? l : "TBA";
+        this.max_students = max < DMAX ? DMAX : max;
         this.no_students = 0;
 
         // initialized the list of enrolled students
         // implement your code here!!!
+        student_list = new PList();
     }
 
     public boolean enrollStudent(Student s) {
@@ -36,19 +39,31 @@ public class Course {
             // print message and return value accordingly
 
             // implement your code here!!!
+            if (student_list.found(s)) {
+                return false;
+            } else {
+                student_list.pushToTail(s);
+                this.no_students++;
+                return true;
+            }
 
         } else {
             // print error message, and return value accordingly
             // implement your code here!!!
+            System.out.println("ERROR");
+            return false;
         }
 
-        return false;
 
     }
 
     public boolean removeStudent(Student s) {
         // implement your code here!!!
-
+        if (student_list.found(s)) {
+            student_list.remove(s);
+            this.no_students--;
+            return true;
+        }
         return false;
     }
 
@@ -57,7 +72,7 @@ public class Course {
     }
 
     public void setCourse_name(String course_name) {
-        this.course_name = !course_name.equalsIgnoreCase("")?course_name:this.course_name;
+        this.course_name = !course_name.equalsIgnoreCase("") ? course_name : this.course_name;
     }
 
     public String getCourse_id() {
@@ -65,7 +80,7 @@ public class Course {
     }
 
     public void setCourse_id(String course_id) {
-        this.course_id = isValidCourse_id(course_id)?course_id:this.course_id;
+        this.course_id = isValidCourse_id(course_id) ? course_id : this.course_id;
     }
 
     public String getLecturer() {
@@ -73,7 +88,7 @@ public class Course {
     }
 
     public void setLecturer(String lecturer) {
-        this.lecturer = !lecturer.equalsIgnoreCase("")?lecturer:this.lecturer;
+        this.lecturer = !lecturer.equalsIgnoreCase("") ? lecturer : this.lecturer;
     }
 
     public int getMax_students() {
@@ -81,7 +96,7 @@ public class Course {
     }
 
     public void setMax_students(int max_students) {
-        this.max_students = max_students<10?this.max_students:max_students;
+        this.max_students = max_students < 10 ? this.max_students : max_students;
     }
 
     public int getNo_students() {
@@ -89,7 +104,7 @@ public class Course {
     }
 
     public void setNo_students(int no_students) {
-        this.no_students = (no_students>=0 && no_students<=max_students)?no_students:this.no_students;
+        this.no_students = (no_students >= 0 && no_students <= max_students) ? no_students : this.no_students;
     }
 
     @Override
@@ -131,5 +146,6 @@ public class Course {
 
     // add a list of enrolled students
     // implement your code here!!!
+    private PList student_list;
 
 }
