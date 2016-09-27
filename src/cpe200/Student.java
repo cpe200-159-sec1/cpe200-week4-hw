@@ -25,19 +25,19 @@ public class Student {
     }
 
     public boolean addCourse(Course c) {
-        if (c.enrollStudent(this)) {    // enroll the course with "this" student object
-            // add the new course to the list of enrolled courses (PList)
-            // implement your code here!!!
-
+        if (c.enrollStudent(this)) {
+            courses.pushToTail(c);
             return true;
         } else
-            return false;               // if unable to enroll a student
+            return false;
     }
 
     public boolean dropCourse(Course c) {
         // remove "this" student from the course
-        // implement your code here!!!
-
+        if(c.removeStudent(this)){
+            courses.remove(c);
+            return true;
+        }
         return false;
     }
 
@@ -113,5 +113,5 @@ public class Student {
     private int year_of_birth;
     private boolean isActive;
 
-    private PList courses;
+    private PList courses = new PList();
 }
