@@ -91,7 +91,7 @@ public class PList {
 
     public Object elementAt(int index) {
         PNode tmp = head;
-        if (index < 0 || index >= size-1) {
+        if (index < 0 || index > size-1) {
             return null;
         }
         else
