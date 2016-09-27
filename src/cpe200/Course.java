@@ -30,26 +30,26 @@ public class Course {
 
         if (this.no_students < this.max_students) {
             if (student.found(s)) {
-                System.out.println("ALREADY enrolled in this course!");
+                System.out.println(s.getStudent_id() + " has already enrolled in " + course_id + ".");
                 return false;
             } else {
+                System.out.println(s.getStudent_id() + " has enrolled in " + course_id + " successfully.");
                 student.pushToTail(s);
                 no_students++;
                 return true;
             }
         } else {
-            System.out.println("FULL!");
+            System.out.println(s.getStudent_id() + " cannot enroll in this course, " + course_id + " is full.");
             return false;
         }
     }
 
     public boolean removeStudent(Student s) {
         if (student.remove(s)) {
+            System.out.println(s.getStudent_id() + " has been removed from " + course_id + " successfully.");
             no_students--;
-            s.dropCourse(this);
             return true;
         }
-
         return false;
     }
 
@@ -112,14 +112,7 @@ public class Course {
         // implement your code here!!!
         for (int i = 0; i < student.getSize(); i++) {
             Student s = (Student) student.elementAt(i);
-            o += "\n\t" + s.getName() + " ("
-                    + s.getStudent_id() + ") was born in "
-                    + s.getStudent_id() + " ";
-
-            if (s.isActive())
-                o = o + "is an ACTIVE student.";
-            else
-                o = o + "is an INACTIVE student.";
+            o += "\n\t" + s.getStudent_id() + " - " + s.getName();
         }
 
         return o;

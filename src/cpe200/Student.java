@@ -38,6 +38,7 @@ public class Student {
             c.removeStudent(this);
             return true;
         }
+        System.out.println(student_id + " is NOT enrolled in " + c.getCourse_id() + ".");
         return false;
     }
 
@@ -89,18 +90,7 @@ public class Student {
             Course c = (Course)courses.elementAt(i);
 
             // implement your code here!!!
-            o += "\n\t" + c.getCourse_name() + " ("
-                    + c.getCourse_id() + "), Teacher: "
-                    + c.getLecturer() + ", has ";
-
-            if (c.getNo_students() < 1)
-                o += "NO student, ";
-            else if (c.getNo_students() == 1)
-                o += "ONE student, ";
-            else if (c.getNo_students() > 1)
-                o += c.getNo_students() + " students, ";
-
-            o += "[maximum: " + c.getMax_students() + "]";
+            o += "\n\t" + c.getCourse_id() + " - " + c.getCourse_name();
         }
 
         return o;
