@@ -1,5 +1,6 @@
 package cpe200;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +25,7 @@ public class Course {
 
         // initialized the list of enrolled students
         // implement your code here!!!
+        this.students = new PList();
     }
 
     public boolean enrollStudent(Student s) {
@@ -36,10 +38,18 @@ public class Course {
             // print message and return value accordingly
 
             // implement your code here!!!
-
+            if(students.found(s)) {
+                System.out.println("Already enroll");
+            }else{
+                students.pushToTail(s);
+                no_students++;
+                return true;
+            }
         } else {
             // print error message, and return value accordingly
             // implement your code here!!!
+
+            System.out.println("seat is full");
         }
 
         return false;
@@ -47,8 +57,10 @@ public class Course {
     }
 
     public boolean removeStudent(Student s) {
-        // implement your code here!!!
-
+        if(students.remove(s)) {
+            no_students--;
+            return true;
+        }
         return false;
     }
 
@@ -110,6 +122,11 @@ public class Course {
         // Information on student(s) who has enrolled in this course
         // implement your code here!!!
 
+        for(int i=0;i<students.getSize(); i++) {
+            Student s = (Student) students.elementAt(i);
+            o+= String.format("\n%s %s", s.getStudent_id(), s.getName());
+        }
+
         return o;
     }
 
@@ -128,8 +145,6 @@ public class Course {
     private String lecturer;
     private int max_students;
     private int no_students;
-
-    // add a list of enrolled students
-    // implement your code here!!!
+    private PList students;
 
 }
