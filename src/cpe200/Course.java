@@ -1,5 +1,6 @@
 package cpe200;
 
+import javax.swing.text.PlainDocument;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,11 +25,21 @@ public class Course {
 
         // initialized the list of enrolled students
         // implement your code here!!!
+        enrolled_student = new PList();
     }
 
     public boolean enrollStudent(Student s) {
 
         if (this.no_students < this.max_students) {
+            if(!this.enrolled_student.found(s)){
+                this.enrolled_student.pushToTail(s);
+                this.no_students++;
+                return true;
+            }else{
+                System.out.println(s.getStudent_id()+ " has already enrolled in "+this.getCourse_id()+".");
+                return false;
+            }
+
             // check if the course is FULL
             // check if the student has ALREADY enrolled in this course
             // add the student to the list of students (PList)
@@ -38,16 +49,26 @@ public class Course {
             // implement your code here!!!
 
         } else {
+            return false;
             // print error message, and return value accordingly
             // implement your code here!!!
+
         }
 
-        return false;
+
 
     }
 
     public boolean removeStudent(Student s) {
         // implement your code here!!!
+        if(no_students !=0){
+            if(this.enrolled_student.found(s)){
+                enrolled_student.remove(s);
+                no_students--;
+                return  true;
+            }else
+                return false;
+        }
 
         return false;
     }
@@ -129,6 +150,7 @@ public class Course {
     private int max_students;
     private int no_students;
 
+    private PList enrolled_student;
     // add a list of enrolled students
     // implement your code here!!!
 
