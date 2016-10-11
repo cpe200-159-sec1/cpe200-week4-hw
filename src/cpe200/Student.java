@@ -37,8 +37,7 @@ public class Student {
 
             return true;
         } else{
-            System.out.println(this.getStudent_id()+" cannot enroll in this course, "+
-                    c.getCourse_id()+" is full.");
+
             return false;               // if unable to enroll a student
         }
     }
@@ -106,7 +105,8 @@ public class Student {
             Course c = (Course)courses.elementAt(i);
 
             // implement your code here!!!
-            o += "\n\tshow course information here...";
+            o += "\n\t" + c.getCourse_id()+" - "
+                        + c.getCourse_name();
         }
 
         return o;

@@ -97,6 +97,7 @@ public class PList {
             if (i==index){
                 return tmp.data;
             } tmp=tmp.next;
+
         }
 
         return null;

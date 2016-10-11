@@ -26,7 +26,12 @@ public class TestEnrollment {
 
 
         System.out.println("\n******** Start batch enrollment: ADD transactions ********");
-        s[1].addCourse(cpe102); s[1].addCourse(cpe102); s[1].addCourse(cpe200); s[1].addCourse(isne103); s[1].addCourse(isne200);
+        s[1].addCourse(cpe102);
+        s[1].addCourse(cpe102);
+        s[1].addCourse(cpe200);
+        s[1].addCourse(isne103);
+        s[1].addCourse(isne200);
+
         s[2].addCourse(cpe102); s[2].addCourse(cpe200); s[2].addCourse(isne103); s[2].addCourse(isne202);
         s[3].addCourse(cpe102); s[3].addCourse(isne103); s[3].addCourse(isne200); s[3].addCourse(isne202);
         s[4].addCourse(cpe102); s[4].addCourse(isne202);

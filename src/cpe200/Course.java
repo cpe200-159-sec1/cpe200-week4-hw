@@ -49,6 +49,8 @@ public class Course {
             // implement your code here!!!
 
         } else {
+            System.out.println(s.getStudent_id()+" cannot enroll in this course, "+
+                    this.getCourse_id()+" is full.");
             return false;
             // print error message, and return value accordingly
             // implement your code here!!!
@@ -130,6 +132,14 @@ public class Course {
 
         // Information on student(s) who has enrolled in this course
         // implement your code here!!!
+
+        for (int i=0; i<enrolled_student.getSize(); i++) {
+            Student s = (Student) enrolled_student.elementAt(i);
+
+            // implement your code here!!!
+            o += "\n\t" + s.getStudent_id()+" - "
+                    + s.getName();
+        }
 
         return o;
     }
