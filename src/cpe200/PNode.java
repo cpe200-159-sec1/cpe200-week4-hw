@@ -9,5 +9,7 @@ public class PNode {
         this.data = data;
         this.next=next;
         this.prev=prev;
+
+
     }
 }
