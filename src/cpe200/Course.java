@@ -22,24 +22,23 @@ public class Course {
         this.max_students = max<DMAX?DMAX:max;
         this.no_students = 0;
 
-        // initialized the list of enrolled students
-        // implement your code here!!!
+        stuList = new PList();
     }
 
     public boolean enrollStudent(Student s) {
 
         if (this.no_students < this.max_students) {
-            // check if the course is FULL
-            // check if the student has ALREADY enrolled in this course
-            // add the student to the list of students (PList)
-            // update number of students in the course
-            // print message and return value accordingly
-
-            // implement your code here!!!
+            if(!this.stuList.found(s))
+            {
+                stuList.pushToTail(s);
+                this.no_students++;
+                System.out.println(s.getStudent_id()+" has enrolled in "+this.course_id+" successfully.");
+                return true;
+            }
+            System.out.println(s.getStudent_id()+" has already enrolled in "+this.course_id + ".");
 
         } else {
-            // print error message, and return value accordingly
-            // implement your code here!!!
+            System.out.println(s.getStudent_id()+" cannot enroll in this course, "+this.course_id+" is full.");
         }
 
         return false;
@@ -47,7 +46,14 @@ public class Course {
     }
 
     public boolean removeStudent(Student s) {
-        // implement your code here!!!
+        if (this.stuList.found(s))
+        {
+            stuList.remove(s);
+            this.no_students--;
+            System.out.println(s.getStudent_id() + " has been removed from " + this.course_id +" successfully.");
+            return true;
+        }
+        System.out.println(s.getStudent_id() + " is NOT enrolled in " + this.course_id + ".");
 
         return false;
     }
@@ -107,8 +113,12 @@ public class Course {
 
         o += "[maximum: " + this.max_students + "]";
 
-        // Information on student(s) who has enrolled in this course
-        // implement your code here!!!
+        for (int i=0; i<stuList.getSize(); i++) {
+            Student s = (Student) stuList.elementAt(i);
+
+            // implement your code here!!!
+            o += "\n\t" + s.getStudent_id() +" - "+ s.getName();
+        }
 
         return o;
     }
@@ -120,7 +130,7 @@ public class Course {
         return m.matches();
     }
 
-    private static final String idREGEX = "\\d{6}";
+    private static final String idREGEX = "^\\d{6}$";
     private static final int DMAX = 3;
 
     private String course_name;
@@ -129,7 +139,6 @@ public class Course {
     private int max_students;
     private int no_students;
 
-    // add a list of enrolled students
-    // implement your code here!!!
+    private PList stuList;
 
 }
